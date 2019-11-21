@@ -15,9 +15,9 @@ func main() {
 `
 	greaterHandler := &greater.Handler{}
 
-	router := &Router{
-		greater: greater,
-	}
+	router := chi.NewRouter()
+	router.Get("/hello", greaterHandler.Hello)
+	router.Get("/bye", greaterHandler.Bye)
 
 	spew.Dump(greaterHandler, "blauh")
 
