@@ -18,6 +18,7 @@ func main() {
 	router := chi.NewRouter()
 	router.Get("/hello", greaterHandler.Hello)
 	router.Get("/bye", greaterHandler.Bye)
+	router.Post("/add", greaterHandler.Add)
 
 	spew.Dump(greaterHandler, "blauh")
 
