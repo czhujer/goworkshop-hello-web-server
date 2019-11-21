@@ -2,49 +2,26 @@ package main
 
 import (
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
+	"github.com/go-chi/chi"
+	"goworkshop-hello-web-server/greater"
 	"net/http"
 )
-
-type Greater struct {
-}
-
-type Router struct {
-	greater *Greater
-}
-
-func (g *Greater) Hello(rw http.ResponseWriter, req *http.Request) {
-	rw.WriteHeader(http.StatusTeapot)
-	rw.Write([]byte("I'm teapot\n"))
-}
-
-func (g *Greater) Bye(rw http.ResponseWriter, req *http.Request) {
-	//rw.WriteHeader(http.StatusTeapot)
-	rw.Write([]byte("Bye\n"))
-}
-
-func (r *Router) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
-	switch req.URL.Path {
-	case "/hello":
-		r.greater.Hello(rw,req)
-	case "/bye":
-		r.greater.Bye(rw, req)
-	default:
-		http.NotFound(rw, req)
-	}
-}
 
 func main() {
 	dottedstring := `.
 ..
 ...
 `
-	greater := &Greater{}
+	greaterHandler := &greater.Handler{}
 
 	router := &Router{
 		greater: greater,
 	}
 
-	fmt.Println("Starting web server..")
+	spew.Dump(greaterHandler, "blauh")
+
+	fmt.Println("Starting stupid web server..")
 	fmt.Println(dottedstring)
 
 	err := http.ListenAndServe(":3000", router)
